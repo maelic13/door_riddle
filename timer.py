@@ -1,6 +1,6 @@
 import datetime
 from os.path import isfile
-from tkinter import BOTTOM, Button, Label, Tk
+from tkinter import Button, Label, Tk
 
 
 class TimerHelper:
