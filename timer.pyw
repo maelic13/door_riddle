@@ -44,11 +44,11 @@ class TimerHelper:
     def _color_text(self, label):
         elapsed_time = self._get_elapsed_time()
         if elapsed_time < datetime.timedelta(days=3):
-            label.configure(fg="red")
+            label.configure(fg="darkred")
         elif datetime.timedelta(days=3) <= elapsed_time < datetime.timedelta(days=14):
             label.configure(fg="black")
         elif datetime.timedelta(days=14) <= elapsed_time < datetime.timedelta(days=31):
-            label.configure(fg="green")
+            label.configure(fg="darkgreen")
         elif datetime.timedelta(days=31) < elapsed_time:
             label.configure(fg="darkblue")
 
