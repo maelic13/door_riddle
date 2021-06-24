@@ -4,7 +4,7 @@ from tkinter import Button, Label, Tk
 
 
 class TimerHelper:
-    def __init__(self):
+    def __init__(self, filename="timestamp"):
         self.root = Tk()
         self.label = Label(
             self.root, font=('calibri', 40, 'bold'),
@@ -13,7 +13,7 @@ class TimerHelper:
         self.button = Button(self.root, text='RESET', font=('calibri', 20, 'bold'), bg="darkgrey",
                              command=self._write_current_date_and_time)
         self.button.pack()
-        self._filename = 'timestamp.txt'
+        self._filename = filename + ".txt"
 
     def time(self):
         string = str(self._get_elapsed_time()).split(".")[0]
@@ -54,4 +54,4 @@ class TimerHelper:
 
 
 if __name__ == "__main__":
-    TimerHelper().run_timer()
+    TimerHelper("last_time").run_timer()
