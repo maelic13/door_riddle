@@ -7,38 +7,32 @@ Season = namedtuple("Season", "name adventures")
 Result = namedtuple("Result", "base_season compared_season score")
 
 
-def calculate_variation(default: Sequence[int], comparing: Sequence[int]) -> int:
+def calculate_variation(default: Season, comparing: Season) -> int:
     variation = 0
-    for encounter in comparing:
-        if encounter not in default:
+    for encounter in comparing.adventures:
+        if encounter not in default.adventures:
             variation += 10
             continue
-        variation += abs(comparing.index(encounter) - default.index(encounter))
+        variation += abs(comparing.adventures.index(encounter) - default.adventures.index(encounter))
     return variation
 
 
-def find_max_variation(season: Sequence[int]) -> Sequence[int]:
-    new_season = list(season[::-1])
+def find_max_variation(season: Season) -> Season:
+    new_season_adventures = list(season.adventures[::-1])
     missing_indices = [x for x in range(1, 11) if x not in season]
-    new_season[3] = missing_indices[0]
-    new_season[4] = missing_indices[1]
-    return tuple(new_season)
+    new_season_adventures[3] = missing_indices[0]
+    new_season_adventures[4] = missing_indices[1]
+    return Season(season.name + "_opposite", tuple(new_season_adventures))
 
 
 def result_permutations(seasons: List[Season]) -> List[Result]:
-    results = list()
-    for season1, season2 in permutations(seasons, 2):
-        score = calculate_variation(season1.adventures, season2.adventures)
-        results.append(Result(season1.name, season2.name, score))
-    return results
+    return [Result(season1.name, season2.name, calculate_variation(season1, season2))
+            for season1, season2 in permutations(seasons, 2)]
 
 
 def base_results(base: Season, compare: List[Season]) -> List[Result]:
-    results = list()
-    for compared_season in compare:
-        score = calculate_variation(base.adventures, compared_season.adventures)
-        results.append(Result(base.name, compared_season.name, score))
-    return results
+    return [Result(base.name, compared_season.name, calculate_variation(base, compared_season))
+            for compared_season in compare]
 
 
 def print_results(results: List[Result]) -> None:
@@ -56,6 +50,8 @@ if __name__ == "__main__":
     # calculate scores
     permutation_results = result_permutations([spring, summer, fall, winter])
     spring_scores = base_results(spring, [summer, fall, winter])
+    max_variation_spring = find_max_variation(spring)
 
     # print results
     print_results(spring_scores)
+    print(max_variation_spring)
