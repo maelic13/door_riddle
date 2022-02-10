@@ -1,9 +1,10 @@
 from collections import Counter
-import matplotlib.pyplot as plt
 from multiprocessing import cpu_count, Pool
-from psutil import virtual_memory
 from random import randint
 from time import time
+
+import matplotlib.pyplot as plt
+from psutil import virtual_memory
 
 
 def randomize_throws_in_batches(batch, repetitions, dice=6, num_throws=3):
