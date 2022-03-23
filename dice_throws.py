@@ -61,8 +61,8 @@ if __name__ == '__main__':
     args[0][0] += iterations % cpus
     with Pool() as pool:
         counted_results = pool.starmap(randomize_throws_in_batches, args)
-
     end = time()
+
     print()
     print("{}M iterations completed.".format(iterations / 1000000))
     print("Calculation took {} min {} s.".format(int((end - start) / 60), int((end - start) % 60)))
