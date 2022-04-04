@@ -1,4 +1,6 @@
 from copy import copy
+from typing import List
+
 import numpy as np
 
 from sudoku.move import Move
@@ -29,6 +31,11 @@ class Board:
     def root(self):
         return Board(self._root)
 
+    @property
+    def unfilled_count(self) -> int:
+        flat = [item for sublist in self._current_board for item in sublist]
+        return flat.count(None)
+
     def filled(self) -> bool:
         flat_board = [item for sublist in self._current_board for item in sublist]
         return None not in set(flat_board)
@@ -39,7 +46,7 @@ class Board:
     def win(self) -> bool:
         return self.filled() and self.valid()
 
-    def valid_moves(self):
+    def valid_moves(self) -> List[Move]:
         moves = self.possible_moves()
         valid_moves = list()
 
@@ -50,7 +57,7 @@ class Board:
             self.unmake_last_move()
         return valid_moves
 
-    def possible_moves(self):
+    def possible_moves(self) -> List[Move]:
         possible_moves = list()
         for row_index in range(9):
             for column_index in range(9):
