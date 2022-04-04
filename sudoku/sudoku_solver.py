@@ -1,5 +1,5 @@
 from time import time
-from typing import List
+from typing import List, Optional
 
 import numpy as np
 
@@ -8,6 +8,14 @@ from sudoku.move import Move
 
 
 class SudokuSolver:
+    @classmethod
+    def solve(cls, boards: List[Board]) -> List[Optional[Board]]:
+        solved_boards = list()
+        for board in boards:
+            solved_board = cls.solve_board(board)
+            solved_boards.append(solved_board if solved_board.win() else None)
+        return solved_boards
+
     @classmethod
     def solve_board(cls, board: Board) -> Board:
         valid_moves = cls._sort_moves(board.valid_moves())
@@ -56,7 +64,6 @@ if __name__ == "__main__":
     start = time()
     solution = SudokuSolver.solve_board(task_board)
     end = time()
-    print(solution)
-    print(solution == task_board2)
 
     print(f"Execution time: {end - start} s.")
+    print(f"Result {'is' if solution == task_board2 else 'is not'} correct!")

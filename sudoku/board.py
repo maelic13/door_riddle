@@ -40,6 +40,9 @@ class Board:
         flat_board = [item for sublist in self._current_board for item in sublist]
         return None not in set(flat_board)
 
+    def reset(self) -> None:
+        self._current_board = copy(self._root)
+
     def valid(self) -> bool:
         return self.all_rows_valid() and self.all_columns_valid() and self.all_sectors_valid()
 
