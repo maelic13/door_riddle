@@ -50,7 +50,7 @@ class Board:
         return self.filled() and self.valid()
 
     def valid_moves(self) -> List[Move]:
-        moves = self.possible_moves()
+        moves = self._possible_moves()
         valid_moves = list()
 
         for move in moves:
@@ -60,7 +60,7 @@ class Board:
             self.unmake_last_move()
         return valid_moves
 
-    def possible_moves(self) -> List[Move]:
+    def _possible_moves(self) -> List[Move]:
         possible_moves = list()
         for row_index in range(9):
             for column_index in range(9):
@@ -132,14 +132,3 @@ class Board:
             string += "| {} | {} | {} | {} | {} | {} | {} | {} | {} |\n".format(*row_numbers) \
                       + " --- --- --- --- --- --- --- --- ---\n"
         return string
-
-
-if __name__ == "__main__":
-    brd = Board.empty()
-    brd.make_move(Move(0, 0, 9))
-    brd.make_move(Move(7, 7, 9))
-    brd.make_move(Move(8, 8, 9))
-    print(brd)
-    print(brd.valid())
-    print(brd.filled())
-    print(brd.win())

@@ -78,7 +78,7 @@ class DoorRiddle:
 
 if __name__ == "__main__":
     num_tries = 1000000000
-    num_cpus = int(cpu_count() / 2)
+    num_cpus = cpu_count()
 
     # switch doors
     start1 = time()
